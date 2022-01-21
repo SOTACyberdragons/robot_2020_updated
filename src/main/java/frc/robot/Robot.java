@@ -24,12 +24,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.util.Color;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.globalDriveState;
-//import frc.robot.commands.DifferentialDriveWithJoysticks;
-//import frc.robot.subsystems.Feeder;
-//import frc.robot.subsystems.Hopper;
-//import frc.robot.subsystems.Intake;
-//import frc.robot.subsystems.Shooter;
-//import frc.robot.subsystems.Spinner;
+
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -74,20 +69,11 @@ public class Robot extends TimedRobot {
 
     Scheduler.getInstance();
 
-    //robotContainer = new RobotContainer();
-    //drivetrain = new Drivetrain();
-    //spinner = new Spinner();
-    // intake = new Intake();
-    // shooter = new Shooter();
-    // feeder = new Feeder();
-    // hopper = new Hopper();
-    //oi = new OI();
+    robotContainer = new RobotContainer();
+
 
     drivetrain.resetSensors();
-    // m_colorMatcher.addColorMatch(kBlueTarget);
-    // m_colorMatcher.addColorMatch(kGreenTarget);
-    // m_colorMatcher.addColorMatch(kRedTarget);
-    // m_colorMatcher.addColorMatch(kYellowTarget);  
+
   }
 
   
@@ -132,7 +118,7 @@ public class Robot extends TimedRobot {
     
     //this is a temporary solution, because the drive command isn't actually getting scheduled
     double throttle = 1;
-    Robot.drivetrain.drive(-Robot.oi.getLeftStick().getY()*throttle, Robot.oi.getRightStick().getX());
+    
     
     SmartDashboard.putNumber("driving status: ", globalDriveState.update);
     SmartDashboard.putNumber("Left Ticks: ", drivetrain.getLeftRawEncoderTicks());

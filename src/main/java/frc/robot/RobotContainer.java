@@ -16,24 +16,55 @@ import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.math.trajectory.TrajectoryConfig;
 import edu.wpi.first.math.trajectory.TrajectoryGenerator;
 import edu.wpi.first.math.trajectory.constraint.DifferentialDriveVoltageConstraint;
+import frc.robot.commands.DifferentialDriveWithJoysticks;
 import frc.robot.subsystems.Drivetrain;
+import frc.robot.subsystems.Feeder;
+import frc.robot.subsystems.Hopper;
+import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.Shooter;
 import frc.robot.utils.AutoConstants;
 import frc.robot.utils.DriveConstants;
 import edu.wpi.first.wpilibj2.command.RamseteCommand;
-
+import edu.wpi.first.wpilibj2.command.RunCommand;
+import frc.robot.commands.DifferentialDriveWithJoysticks;
 
 
 public class RobotContainer {
 
+    Drivetrain m_robotDrive;
+    OI m_oi;
+    Feeder m_feeder;
+    Hopper m_hopper;
+    Intake m_intake;
+    Shooter m_shooter;
 
     public RobotContainer() {
+
+        configureButtonBindings();
+        m_robotDrive  = new Drivetrain();
+        m_oi = new OI();
+        m_feeder = new Feeder();
+        m_hopper = new Hopper();
+        m_intake = new Intake();
+        m_shooter = new Shooter();
+    
+        m_robotDrive.setDefaultCommand(
+            // A split-stick arcade command, with forward/backward controlled by the left
+            // hand, and turning controlled by the right.
+            new RunCommand( () ->
+                 m_robotDrive.arcadeDrive(m_oi.getLeftStick().getY(), m_oi.getRightStick().getX())));
           /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
    *
    * @return the command to run in autonomous
    */
     }
-  public Command getAutonomousCommand() {
+    private void configureButtonBindings() {
+        // Drive at half speed when the right bumper is held
+       
+      }
+    
+     public Command getAutonomousCommand() {
 
     // Create a voltage constraint to ensure we don't accelerate too fast
     var autoVoltageConstraint =
@@ -68,7 +99,6 @@ public class RobotContainer {
         config
     );
 
-    Drivetrain m_robotDrive = new Drivetrain();
 
     RamseteCommand ramseteCommand = new RamseteCommand(
         exampleTrajectory,
