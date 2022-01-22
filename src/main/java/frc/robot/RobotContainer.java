@@ -30,24 +30,24 @@ import frc.robot.commands.DifferentialDriveWithJoysticks;
 
 
 public class RobotContainer {
-
     Drivetrain m_robotDrive;
-    OI m_oi;
     Feeder m_feeder;
     Hopper m_hopper;
     Intake m_intake;
     Shooter m_shooter;
+    OI m_oi;
+   
 
     public RobotContainer() {
 
         configureButtonBindings();
         m_robotDrive  = new Drivetrain();
-        m_oi = new OI();
         m_feeder = new Feeder();
         m_hopper = new Hopper();
         m_intake = new Intake();
         m_shooter = new Shooter();
-    
+        m_oi = new OI();
+
         m_robotDrive.setDefaultCommand(
             // A split-stick arcade command, with forward/backward controlled by the left
             // hand, and turning controlled by the right.
