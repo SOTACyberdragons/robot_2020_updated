@@ -18,7 +18,7 @@ public class Intake extends SubsystemBase {
        
        
         intakeMotor = new WPI_TalonSRX(RobotMap.INTAKE_MOTOR);
-        intakeSolenoid = new DoubleSolenoid(null, RobotMap.DOUBLE_SOLENOID_ZERO,RobotMap.DOUBLE_SOLENOID_ONE);
+      //  intakeSolenoid = new DoubleSolenoid(null, RobotMap.DOUBLE_SOLENOID_ZERO,RobotMap.DOUBLE_SOLENOID_ONE);
 
     }
 
@@ -34,9 +34,9 @@ public class Intake extends SubsystemBase {
 
     public void moveIntake(String direction) {
         if(direction == "down") {
-            intakeSolenoid.set(Value.kForward);
+           // intakeSolenoid.set(Value.kForward);
         } else if(direction == "up") {
-            intakeSolenoid.set(Value.kReverse);
+          //  intakeSolenoid.set(Value.kReverse);
         }
     }
 }
