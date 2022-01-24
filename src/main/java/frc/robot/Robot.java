@@ -16,8 +16,8 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.MotorSafety;
 import edu.wpi.first.wpilibj.TimedRobot;
-import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.command.Scheduler;
+import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.simulation.DifferentialDrivetrainSim;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -52,6 +52,10 @@ public class Robot extends TimedRobot {
 
   public static ShooterTest shooterTest = new ShooterTest();
 
+  public static cScheduler scheduler = new cScheduler();
+
+  public static DriveTrainTest driveTest = new DriveTrainTest();
+
   public static DifferentialDriveWithJoysticks differentialDriveWithJoysticks = new DifferentialDriveWithJoysticks();
 
   //public static DifferentialDriveWithJoysticks joystickCommand;
@@ -81,7 +85,7 @@ public class Robot extends TimedRobot {
     m_chooser.addOption("My Auto", kCustomAuto);
     SmartDashboard.putData("Auto choices", m_chooser);
 
-    Scheduler.getInstance();
+    CommandScheduler.getInstance();
     
  
     //testFunctions.run();
@@ -121,7 +125,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousPeriodic() {
-    Scheduler.getInstance().run();
+    CommandScheduler.getInstance().run();
 
     switch (m_autoSelected) {
     case kCustomAuto:
@@ -141,11 +145,11 @@ public class Robot extends TimedRobot {
    @Override 
    public void teleopInit()
    {
+      scheduler.schedule(driveTest, 20);
    }
 
   @Override
   public void teleopPeriodic() {
-    CommandScheduler.getInstance().run();
     //globalDriveState.update++;
     
     //this is a temporary solution, because the drive command isn't actually getting scheduled
@@ -164,14 +168,6 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("Drive Distance: ", drivetrain.getDistance());
     SmartDashboard.putNumber("L2 Value", oi.getL2());
     
-
-    // SmartDashboard.putBoolean("Break Beam:", feeder.getBreakBeam());
-    //SmartDashboard.putBoolean("Right encoder  out of phase:", value);
-
-    // SmartDashboard.putNumber("Red: ", spinner.getRed());
-    // SmartDashboard.putNumber("Blue: ", spinner.getBlue());
-    // SmartDashboard.putNumber("Green: ", spinner.getGreen());
-    // SmartDashboard.putString("Color: ", spinner.getColor());
 
     gameData = DriverStation.getGameSpecificMessage();
   }
